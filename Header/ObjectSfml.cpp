@@ -22,3 +22,9 @@ void ObjectSfml::draw(sf::RenderWindow& window)
 {
 	window.draw(m_Sprite);
 }
+
+void ObjectSfml::draw(sf::RenderTarget& taget,
+		sf::RenderStates state) const
+{
+	taget.draw(m_Sprite);
+}

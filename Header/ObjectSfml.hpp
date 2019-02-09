@@ -10,7 +10,8 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <iostream>
-class ObjectSfml {
+class ObjectSfml : public sf::Drawable
+{
 public:
 	explicit ObjectSfml(sf::Rect<float> l_Rect, sf::Texture&
 			l_Texture);
@@ -18,7 +19,10 @@ public:
 	void setAlive(bool alive) { m_Alive = alive; }
 	sf::Rect<float> const getRect() { return m_Rect; }
 	void draw(sf::RenderWindow& window);
-	~ObjectSfml() = default;
+	std::string const getName() { return m_Name; }
+	virtual void draw(sf::RenderTarget& taget,
+							sf::RenderStates state) const override;
+	//~virtual ObjectSfml() = default;
 private:
 	sf::Rect<float> m_Rect;
 	sf::Sprite m_Sprite;

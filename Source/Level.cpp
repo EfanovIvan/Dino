@@ -56,18 +56,21 @@ Vector2i Level::GetTileSize()
     return Vector2i(m_tileWidth, m_tileHeight);
 }
 
-void Level::Draw(RenderWindow &window)
+
+
+
+ void Level::draw(sf::RenderTarget& target,
+									sf::RenderStates states) const
 {
-    for (unsigned int layer = 0; layer < m_layers.size(); layer++)
-        for (unsigned int tile = 0; tile < m_layers[layer].tiles.size();
-        														tile++)
-            window.draw(m_layers[layer].tiles[tile]);
-   // std::cout << "render map\n";
+	const sf::FloatRect viewportRect = target.getView().getViewport();
+
+	for(std::size_t layer = 0; layer < m_layers.size(); layer++)
+		 for (std::size_t tile = 0;
+				 tile < m_layers[layer].tiles.size(); tile++)
+			 if (viewportRect.intersects
+					 (m_layers[layer].tiles[tile].getLocalBounds()))
+				 	 	 target.draw(m_layers[layer].tiles[tile]);
 }
-
-
-
-
 
 
 

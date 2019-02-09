@@ -31,9 +31,15 @@ GameState::GameState(StateStack& stack, Context context)
 								"Media/heart.png");
 	m_TexHolderforBoxd2.load(Box2dTextureID::star,
 									"Media/star.png");
+	m_TexHolderforBoxd2.load(Box2dTextureID::bar_star,
+										"Media/bar.png");
+	m_Bar_star.setTexture(
+			m_TexHolderforBoxd2.get(Box2dTextureID::bar_star));
+
 	m_TextofStars.setFont(context.m_Fonts->get(Fonts::Main));
-	m_TextofStars.setString("Stars" );
-	m_TextofStars.setColor(sf::Color:: Yellow);
+	m_TextofStars.setString("1" );
+
+	m_TextofStars.setColor(sf::Color:: Blue);
 	for(int i = 0; i < 3; i++)
 		m_Heart.push_back(sf::Sprite(
 			(m_TexHolderforBoxd2.get(Box2dTextureID::heart))));
@@ -46,34 +52,41 @@ GameState::GameState(StateStack& stack, Context context)
 
 void GameState::draw()
 {
+	sf::Vector2f centerView(m_Gero.getGeroView().getCenter());
 	sf::RenderWindow& window = *getContext().m_Window;
-	m_BG.setPosition(m_Gero.getGeroView().getCenter());
+	sf::Vector2u sizeWindow{ window.getSize() };
+	m_BG.setPosition(centerView);
 	window.draw(m_BG);
-	//window.getSize()
-	m_Level.Draw(window);
+	window.draw(m_Level);
 	for(std::size_t i = 0; i < m_BoxBox2d.size(); i++)
 	{
 		window.draw(*m_BoxBox2d[i]);
 	}
+
 	window.setView(m_Gero.getGeroView());
-	m_positionHealth = {m_Gero.getGeroView().getCenter()};
-	m_positionHealth.x = m_positionHealth.x - 500;
-	m_positionHealth.y = m_positionHealth.y - 450;
-	for( int i = 0, offset = 70; i < m_Heart.size(); i++)
+	m_positionHealth = {centerView};
+	m_positionHealth.x = m_positionHealth.x - sizeWindow.x/2;//500;
+	m_positionHealth.y = m_positionHealth.y - sizeWindow.y/2;//450;
+	int offset = 70;
+	for(std::size_t i = 0;  i < m_Heart.size(); i++)
 	{
 		m_positionHealth.x = m_positionHealth.x + offset;
 		m_Heart[i].setPosition(m_positionHealth.x,m_positionHealth.y);
 		window.draw(m_Heart[i]);
 
 	}
-	m_TextofStars.setPosition(m_positionHealth.x + 100,m_positionHealth.y);
+	m_Bar_star.setPosition(m_positionHealth.x + offset,
+			m_positionHealth.y);
+	window.draw(m_Bar_star);
+	m_TextofStars.setPosition(m_Bar_star.getPosition().x + 33,
+			m_Bar_star.getPosition().y + 33);
 	window.draw(m_TextofStars);
 	for(size_t i = 0; i < m_Mushrooms.size(); ++i)
 	{
 		if(m_Mushrooms[i].isAlive())
 		{
 
-			m_Mushrooms[i].draw(window);
+			window.draw(m_Mushrooms[i]);
 		}
 	}
 
@@ -86,6 +99,7 @@ bool GameState::update(sf::Time dt)
 	m_Gero.update(float(dt.asMilliseconds()));
 	m_World.Step(1/60.f, 8, 3);
 	int j = 0;
+
     for (b2Body* it = m_World.GetBodyList(); it != 0; it = it->GetNext())
        {
 			b2Vec2 pos = it->GetPosition();
@@ -100,18 +114,22 @@ bool GameState::update(sf::Time dt)
 					float x, y;
 					x = converter::metersToPixels(pos.x);
 					y = converter::metersToPixels(pos.y);
-					m_Position.push_back(sf::Vector2f(x,y));
+					//m_Position.push_back(new position(pos.x*32, pos.y*32));
+					//std::cout << x << " " << y << std::endl;
 					m_BoxBox2d[j]->setPosition(x, y);
 					m_BoxBox2d[j++]->
 								setRotation(converter::radToDeg(angle));
+//					xx = x;
+//					yy = y;
+
+
 				}
 
 		 }
 //    for(std::size_t i = 0; i < m_BoxBox2d.size(); i++)
 //    	{
-//    		m_BoxBox2d[i]->setPosition(m_Position[i]);
-//    		std::cout << m_Position[i].x << " " << m_Position[i].y
-//    				<< std::endl;
+//    		m_BoxBox2d[i]->setPosition(m_Position[i]->x,m_Position[i]->y );
+//    		std::cout << m_Position[i]->x << std::endl;
 //    	}
 
     for(size_t i = 0; i < m_Mushrooms.size(); ++i)
@@ -135,7 +153,7 @@ bool GameState::handleEvent(const sf::Event& event)
 						event.key.code == sf::Keyboard::Escape)
 			requestStackPush(StatesID::Pause);
 
-	m_Gero.handleEvent(event);
+			m_Gero.handleEvent(event);
 }
 
 

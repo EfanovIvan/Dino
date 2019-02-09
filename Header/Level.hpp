@@ -33,7 +33,7 @@ struct Layer//слои
 	std::vector<sf::Sprite> tiles;//закидываем в вектор тайлы
 };
 
-class Level//главный класс - уровень
+class Level : public sf::Drawable//главный класс - уровень
 {
 
 	friend class LevelParser;
@@ -44,9 +44,9 @@ public:
 	Object GetObject(std::string name);
 	std::vector<Object> GetObjects(std::string name);//выдаем объект в наш уровень
 	std::vector<Object> GetAllObjects();//выдаем все объекты в наш уровень
-	void Draw(sf::RenderWindow &window);//рисуем в окно
 	sf::Vector2i GetTileSize();//получаем размер тайла
-
+	virtual void draw(sf::RenderTarget& target,
+									sf::RenderStates states)const override;
 private:
 	int m_mapWidth, m_mapHeight;
 	int m_tileWidth, m_tileHeight;
