@@ -183,8 +183,23 @@
 
 	 			while(objectElement)
 	             {
+	 				//находим фон для каждого уровня
+
+	 				  if(objectElement->Attribute("name")
+	 						  	  	  	  	  == std::string("BG"))
+	 					{
+	 					  if(!level.m_TextureBG.loadFromFile(
+	 							 objectElement->Attribute("type")))
+	 						 throw std::runtime_error
+							 ("can't load file for textur");
+	 					  level.m_BG.setTexture(level.m_TextureBG);
+	 					 level.m_BG.setOrigin(level.m_TextureBG.getSize().x/2,
+	 							level.m_TextureBG.getSize().y/2);
+	 					  break;
+
+	 					}
 	 				// Получаем все данные - тип, имя, позиция, etc
-	                 std::string objectType;
+	                 std::string objectType;std::cout << "parser" << std::endl;
 	                 if (objectElement->Attribute("type") != NULL)
 	                 {
 	                     objectType = objectElement->Attribute("type");

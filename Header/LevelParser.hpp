@@ -11,6 +11,7 @@
 #include <tinyxml.h>
 #include <tinystr.h>
 #include <Level.hpp>
+#include <stdexcept>
 class LevelParser {
 public:
 

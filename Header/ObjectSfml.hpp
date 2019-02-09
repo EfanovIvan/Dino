@@ -15,11 +15,11 @@ class ObjectSfml : public sf::Drawable
 public:
 	explicit ObjectSfml(sf::Rect<float> l_Rect, sf::Texture&
 			l_Texture);
-	bool isAlive();
-	void setAlive(bool alive) { m_Alive = alive; }
+	bool                  isAlive();
+	void 				  setAlive(bool alive) { m_Alive = alive; }
 	sf::Rect<float> const getRect() { return m_Rect; }
-	void draw(sf::RenderWindow& window);
-	std::string const getName() { return m_Name; }
+	void 				  draw(sf::RenderWindow& window);
+	std::string const 	  getName() { return m_Name; }
 	virtual void draw(sf::RenderTarget& taget,
 							sf::RenderStates state) const override;
 	//~virtual ObjectSfml() = default;

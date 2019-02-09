@@ -41,31 +41,30 @@ public:
 private:
 
 	void selectLevel();
-	void createWorldBox2d(b2World& world);
-	void createSfmlObject(Level& level);
-
-
-
-	using PtrSolidBody = std::shared_ptr<SolidBodyBox2d>;
-	using Box2d = std::shared_ptr<BoxBodyBox2d>;
-	using Sprites = std::shared_ptr<sf::Sprite>;
+	void createWorldBox2d();
+	void createSfmlObject();
+	void downloudTexture();
 
 	ResourceHolder<sf::Texture, Box2dTextureID>  m_TexHolderforBoxd2;
-	std::vector<Sprites> m_BoxBox2d;
-	std::vector<position*> m_Position;
+	std::vector<sf::Sprite> m_BoxBox2d;
+	std::vector<sf::Sprite> m_Heart;
+	std::vector<ObjectSfml> m_Mushrooms;
+	std::vector<SolidBodyBox2d> m_BodysBox2d;
+	std::vector<BoxBodyBox2d> m_box2d;
+
 	b2World m_World;
 	MainGero m_Gero;
 	sf::Sprite  m_BG;
-	std::vector<sf::Sprite> m_Heart;
-	sf::FloatRect m_localRect;
+
+
 	sf::Vector2f m_positionHealth;
 
-	std::vector<ObjectSfml> m_Mushrooms;
+
 	sf::Text m_TextofStars;
 	int stars;
 	Level m_Level;
-	std::vector<PtrSolidBody> m_BodysBox2d;
-	std::vector<Box2d> m_box2d;
+
+
 	sf::Clock clock;
 	std::stringstream m_ElepsadeTimeGame;
 	sf::Sprite m_Bar_star;

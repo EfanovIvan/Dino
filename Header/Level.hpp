@@ -47,13 +47,15 @@ public:
 	sf::Vector2i GetTileSize();//получаем размер тайла
 	virtual void draw(sf::RenderTarget& target,
 									sf::RenderStates states)const override;
+	sf::Sprite& getBackGround() { return m_BG; }
 private:
 	int m_mapWidth, m_mapHeight;
 	int m_tileWidth, m_tileHeight;
 	int m_firstTileID;//получаем айди первого тайла
 	//sf::Rect<float> m_drawingBounds;//размер части карты которую рисуем
 	sf::Texture m_tilesetImage;//текстура карты
-
+	sf::Texture m_TextureBG;
+	sf::Sprite m_BG;
 	//std::vector<sf::Rect<int>> m_mapRects;
 	sf::Image img;
 	std::vector<Object> m_objects;//массив типа Объекты, который мы создали

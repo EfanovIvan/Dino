@@ -24,7 +24,6 @@ int main()
 	TextureHolder textures;
 	FontHolder fonts;
 	textures.load(Textures::TitleScreen,"Media/background.png" );
-	textures.load(Textures::BackGround,"Media/BG.png" );
 	textures.load(Textures::MainGero,"Media/DinoTIleset.png" );
 
 
@@ -76,9 +75,9 @@ int main()
 			m_RenWindow.display();
 		}
 	}
-	catch(...)
+	catch(std::runtime_error& runtime)
 	{
-		std::cout << "Bad parser";
+		std::cout << runtime.what();
 	}
 	return 0;
 }
