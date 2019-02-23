@@ -36,7 +36,6 @@ int main()
 	auto LevelsXMLPath = loadLevelXMLPath("XMLfiles/levels.xml");
 	auto s = std::make_unique<StateStack>(State::Context(m_RenWindow,
 										textures, fonts, LevelsXMLPath ));
-	//StateStack *s = new StateStack(State::Context(m_RenWindow));
 	sf::Event event;
 	s->registerState<TitleState>(StatesID::Title);
 	s->registerState<MenuState>(StatesID::Menu);

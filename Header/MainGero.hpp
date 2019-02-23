@@ -28,10 +28,9 @@ public:
 	bool const getOnGround() { return m_OnGround; }
 	EntityState::GraphicState const getStateID() { return stateID; }
 	bool const getDirection() { return m_Direction; }
-	b2Body* getBody() { return body; }
 	void draw(sf::RenderTarget& taget,
 								sf::RenderStates state) const override;
-	void reduceLive() { m_Lives--; }
+	void reduceLive();
 	int getLives() { return m_Lives; }
 public:
 	void walk();

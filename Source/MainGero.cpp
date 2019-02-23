@@ -17,16 +17,10 @@
 								,m_Name(std::make_shared
 													<std::string>("dino"))
 								,m_Lives(3)
-
-
 {
-
-		//m_Name = { new std::string("dino") };
 		m_SelectAnim.load("XMLfiles/DinoRectangle.xml");
 		m_OnGround = false;
 		stateID = EntityState::GraphicState::IDLE;
-
-
 }
 
 void MainGero::handleEvent(const sf::Event& event)
@@ -38,8 +32,8 @@ void MainGero::handleEvent(const sf::Event& event)
 		m_EntityState = state;
 		stateID = m_EntityState->state();
 	}
-
 }
+
 void MainGero::draw(sf::RenderTarget& taget,
 									sf::RenderStates state) const
 {
@@ -204,6 +198,8 @@ bool MainGero::direct(float dir)
 }
 
 
-
-
-
+void  MainGero::reduceLive()
+{
+	m_Lives--;
+	body->SetTransform(b2Vec2(10,10),0) ;
+}

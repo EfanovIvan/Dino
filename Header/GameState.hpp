@@ -15,9 +15,8 @@
 #include <ResourceHolder.hpp>
 #include <ResourceIdentifiers.hpp>
 #include <LevelParser.hpp>
-#include <SolidBodyBox2d.hpp>
-#include <BoxBodyBox2d.hpp>
 #include <Converter.hpp>
+#include <ObjectBox2D.hpp>
 #include <ObjectSfml.hpp>
 #include <StatusBar.hpp>
 #include <future>
@@ -44,24 +43,24 @@ private:
 	void downloudTexture();
 private:
 	ResourceHolder<sf::Texture, ObjectID>  m_ObjectWorldTexturs;
-	//std::vector<sf::Sprite> m_BoxBox2d;
 
-	std::vector<ObjectSfml> m_Mushrooms;
-	std::vector<SolidBodyBox2d> m_BodysBox2d;
-	std::vector<BoxBodyBox2d> m_box2d;
+	std::vector<ObjectSfml> m_Stars;
+	std::vector<ObjectBox2D> m_SolidBox2D;
+	std::vector<ObjectBox2D> m_ObjectsBox2D;
 
 	b2World m_World;
 	MainGero m_Gero;
 	sf::Sprite  m_BG;
+	Level m_Level;
+	StatusBar m_StatusBar;
 
 	sf::Vector2u sizeWindow;
-	sf::Text m_TextofStars;
-	int stars;
-	Level m_Level;
-	std::future<std::string> f;
+	int countStars;
 
+
+	std::future<std::string> m_timeConvert;
 	sf::Clock clock;
-	StatusBar m_StatusBar;
+
 };
 
 #endif /* HEADER_GAMESTATE_HPP_ */

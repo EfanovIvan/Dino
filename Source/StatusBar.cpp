@@ -30,9 +30,9 @@ StatusBar::StatusBar(sf::Font& l_font):second(0),minut(0)
 	m_BarStar.setTexture(m_BarTextures.get(BarTexturesID::star));
 	m_BarStar.setOrigin(m_BarTextures.get(BarTexturesID::star).getSize().x/2,
 			m_BarTextures.get(BarTexturesID::star).getSize().y/2);
+
 	m_BarStar.scale(1.2f, 1.2f);
-	m_TextOfStars.setString("01" );
-	m_TextOfStars.setColor(sf::Color:: Blue);
+	m_TextOfStars.setColor(sf::Color(162,109, 19, 250));
 	m_Lives = 3;
 }
 void StatusBar::udate(sf::Vector2f positionView,
