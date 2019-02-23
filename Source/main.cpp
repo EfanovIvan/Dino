@@ -1,3 +1,4 @@
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Window.hpp>
@@ -14,6 +15,12 @@
 #include <ctime>
 #include <iostream>
 #include <GameState.hpp>
+#include <PauseState.hpp>
+#include <tinyxml.h>
+#include <tinystr.h>
+#include <ParserXML.hpp>
+std::map<unsigned int, std::string>
+loadLevelXMLPath(std::string const& pathXMLFile);
 int main()
 {
 	const sf::Time	TimePerFrame =sf::seconds(1.f/60.f);
@@ -25,16 +32,16 @@ int main()
 	FontHolder fonts;
 	textures.load(Textures::TitleScreen,"Media/background.png" );
 	textures.load(Textures::MainGero,"Media/DinoTIleset.png" );
-
-
 	fonts.load(Fonts::Main,"Media/RAVIE.TTF" );
-	auto s = std::make_shared<StateStack>(State::Context(m_RenWindow,
-										textures, fonts));
+	auto LevelsXMLPath = loadLevelXMLPath("XMLfiles/levels.xml");
+	auto s = std::make_unique<StateStack>(State::Context(m_RenWindow,
+										textures, fonts, LevelsXMLPath ));
 	//StateStack *s = new StateStack(State::Context(m_RenWindow));
 	sf::Event event;
 	s->registerState<TitleState>(StatesID::Title);
 	s->registerState<MenuState>(StatesID::Menu);
 	s->registerState<GameState>(StatesID::Game);
+	s->registerState<PauseState>(StatesID::Pause);
 	s->pushState(StatesID::Title);
 
 	sf::Clock clock;
@@ -81,3 +88,20 @@ int main()
 	}
 	return 0;
 }
+std::map<unsigned int, std::string>
+loadLevelXMLPath(std::string const& pathXMLFile)
+{
+	std::map<unsigned int, std::string> levels;
+	ParserXML parser(pathXMLFile);
+	TiXmlElement *root = parser.getRootElement();
+	TiXmlElement* level = root->FirstChildElement();
+	while(level)
+	{
+		std::string str = level->Attribute("name");
+		levels[std::atoi(level->Attribute("id"))] = str;
+		level = level->NextSiblingElement();
+
+	}
+	return levels;
+}
+

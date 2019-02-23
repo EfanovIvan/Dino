@@ -9,17 +9,14 @@
 #define HEADER_ENTITYSTATE_HPP_
 #include <SFML/Graphics.hpp>
 #include <SelectAnimation.hpp>
+
 class MainGero;
-
-
-
 
 class EntityState {
 public:
 	virtual ~EntityState() = default;
 	virtual EntityState* handleEvent(MainGero& gero,
 										const sf::Event& event) = 0;
-
 enum class GraphicState
 	{
 		IDLE, WALK, RUN, JUMP
@@ -29,6 +26,7 @@ enum class GraphicState
 protected:
 
 	GraphicState m_GraphicState;
+
 };
 
 #endif /* HEADER_ENTITYSTATE_HPP_ */

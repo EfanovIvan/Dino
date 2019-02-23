@@ -30,12 +30,14 @@ class State
 		
 		Context(sf::RenderWindow& l_Window
 				,TextureHolder& l_Textures
-				,FontHolder&   l_Fonts);
+				,FontHolder&   l_Fonts
+				,std::map<unsigned int, std::string>& levelsPath);
 
 		sf::RenderWindow*  m_Window;
 		TextureHolder   *  m_Textures;
 		FontHolder      *  m_Fonts;
-
+		unsigned int       m_CurrentLevel;
+		std::map<unsigned int, std::string> *m_LevelsPathFromXML;
 	};
 	public:
 	
@@ -56,7 +58,6 @@ class State
 	 private:
 	 StateStack* m_Stack;
 	 Context     m_Context;
-	 
 	 
 
 };

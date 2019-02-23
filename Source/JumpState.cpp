@@ -15,7 +15,6 @@ JumpState::JumpState()
 
 EntityState* JumpState::handleEvent(MainGero& gero, const sf::Event& event)
 {
-
 //if( gero.getBody()->GetLinearVelocity().y == 0 && gero.getOnGround())
 //{
 //	return new IdleState;

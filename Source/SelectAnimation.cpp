@@ -16,7 +16,7 @@ SelectAnimation::SelectAnimation(sf::Texture& texture)
 	m_CurrentFrame = 0;
 	//m_PositionAfterRun = true;
 	m_SpeedFrame = 0;
-	m_fileNameXML = "testedit.xml";
+//	m_fileNameXML = "testedit.xml";
 }
 void SelectAnimation::setPosition(float x, float y)
 {
@@ -34,12 +34,13 @@ void SelectAnimation::setSprite(std::string spriteName)
 			m_NameSprite[spriteName][static_cast<int>(m_CurrentFrame)]));
 
 }
-void SelectAnimation::load(std::string fileNameXML)
+void SelectAnimation::load(std::string const& fileNameXML)
 {
-	TiXmlDocument doc(fileNameXML.c_str());
-	if(!doc.LoadFile())
-		throw std::runtime_error("bad parse");
-	TiXmlElement *root = doc.RootElement();
+//	TiXmlDocument doc(fileNameXML.c_str());
+//	if(!doc.LoadFile())
+//		throw std::runtime_error("bad parse");
+	loadFromFile(fileNameXML);
+	TiXmlElement *root = getRootElement();
 	TiXmlElement* animation = root->FirstChildElement();
 	while(animation)
 	{
@@ -67,9 +68,10 @@ void SelectAnimation::load(std::string fileNameXML)
 					std::make_pair(str + "Left", reflectionVector));
 		animation = animation ->NextSiblingElement() ;
 	}
+	clear();
 
 }
-void SelectAnimation::animationOutput(MainGero& player, float time)
+sf::Sprite&  SelectAnimation::animationOutput(MainGero& player, float time)
 {
 	using stateID = EntityState::GraphicState;
 	m_CurrentFrame += m_SpeedFrame * time;
@@ -119,6 +121,7 @@ void SelectAnimation::animationOutput(MainGero& player, float time)
 	}
 		m_CurrentSprite.setPosition(player.getRect().left,
 				player.getRect().top);
+		return m_CurrentSprite;
 }
 
 

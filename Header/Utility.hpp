@@ -17,6 +17,7 @@ std::string toString(const T& value);
 
 void centerOrigin(sf::Sprite& sprite);
 void centerOrigin(sf::Text& text);
+std::string getElapsedTimeLevel(unsigned int i);
 
 #include <Utility.inl>
 #endif // BOOK_UTILITY_HPP

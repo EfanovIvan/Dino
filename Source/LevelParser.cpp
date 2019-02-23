@@ -199,7 +199,7 @@
 
 	 					}
 	 				// Получаем все данные - тип, имя, позиция, etc
-	                 std::string objectType;std::cout << "parser" << std::endl;
+	                 std::string objectType;
 	                 if (objectElement->Attribute("type") != NULL)
 	                 {
 	                     objectType = objectElement->Attribute("type");

@@ -11,9 +11,10 @@
 
 #include <map>
 #include <vector>
+#include <ParserXML.hpp>
 class MainGero;
 #include <EntityState.hpp>
-class SelectAnimation {
+class SelectAnimation : public ParserXML {
 
 private:
 	//using AmountOfFrame = std::pair<int, std::vector<sf::IntRect>>;
@@ -28,12 +29,11 @@ private:
 public:
 	SelectAnimation(sf::Texture& texture);
 
-	void load(std::string fileNameXML);
+	void load(std::string const& fileNameXML);
 	void setSprite(std::string spriteName);
 	void init();
 
-	void animationOutput(MainGero& player, float time
-									);
+	sf::Sprite& animationOutput(MainGero& player, float time);
 	void setPosition(float x, float y);
 	sf::Sprite getSprite() { return m_CurrentSprite; }
 };

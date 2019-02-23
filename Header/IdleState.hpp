@@ -9,6 +9,7 @@
 #define HEADER_IDLESTATE_HPP_
 
 #include <EntityState.hpp>
+
 #include <MainGero.hpp>
 class IdleState: public EntityState
 {

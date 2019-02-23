@@ -32,6 +32,7 @@ if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
+		std::cout << "jump " << std::endl;
 			gero.jump();
 			return new JumpState;
 

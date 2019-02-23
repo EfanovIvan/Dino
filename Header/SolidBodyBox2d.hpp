@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <Converter.hpp>
+
 class SolidBodyBox2d {
 public:
 	//bool alive;

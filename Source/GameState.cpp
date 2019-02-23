@@ -8,79 +8,50 @@
 #include <GameState.hpp>
 
 #include <ObjectSfml.hpp>
+#include <Utility.hpp>
 
 
 GameState::GameState(StateStack& stack, Context context)
 					: State(stack, context)
 					,m_World(b2Vec2(0.f, 9.8f))
-					,m_Gero(context.m_Textures->get(Textures::MainGero),
-										m_World)
+					,m_Gero(context.m_Textures->
+										get(Textures::MainGero),m_World)
+					,m_StatusBar(context.m_Fonts->get(Fonts::Main))
 {
 	stars = 0;
 	selectLevel();
 	m_BG = m_Level.getBackGround();
-	downloudTexture();
 	m_BG.scale(1.2, 1.4);
-	m_Bar_star.setTexture(
-			m_TexHolderforBoxd2.get(Box2dTextureID::bar_star));
-	m_TextofStars.setFont(context.m_Fonts->get(Fonts::Main));
-	m_TextofStars.setString("1" );
-	m_TextofStars.setColor(sf::Color:: Blue);
-
-	for(int i = 0; i < 3; i++)
-		m_Heart.push_back(sf::Sprite(
-			(m_TexHolderforBoxd2.get(Box2dTextureID::heart))));
-	//m_BoxBox2d.setTexture(m_TexHolderforBoxd2.get(Box2dTextureID::box));
-
-	createWorldBox2d();
-	createSfmlObject();
-
+	downloudTexture();
+	createObjectWorld();
 }
 
 void GameState::draw()
 {
 	sf::Vector2f centerView(m_Gero.getGeroView().getCenter());
 	sf::RenderWindow& window = *getContext().m_Window;
-	sf::Vector2u sizeWindow{ window.getSize() };
+	 sizeWindow = { window.getSize() };
 	m_BG.setPosition(centerView);
 	window.draw(m_BG);
 	window.draw(m_Level);
 
-	for(std::size_t i = 0; i < m_BoxBox2d.size(); i++)
-		window.draw(m_BoxBox2d[i]);
-
+	for(std::size_t i = 0; i < m_box2d.size(); i++)
+		window.draw(m_box2d[i]);
 
 	window.setView(m_Gero.getGeroView());
-	m_positionHealth = {centerView};
-	m_positionHealth.x = m_positionHealth.x - sizeWindow.x/2;//500;
-	m_positionHealth.y = m_positionHealth.y - sizeWindow.y/2;//450;
-	int offset = 70;
-	for(std::size_t i = 0;  i < m_Heart.size(); i++)
-	{
-		m_positionHealth.x = m_positionHealth.x + offset;
-		m_Heart[i].setPosition(m_positionHealth.x,m_positionHealth.y);
-		window.draw(m_Heart[i]);
-
-	}
-	m_Bar_star.setPosition(m_positionHealth.x + offset,
-			m_positionHealth.y);
-	window.draw(m_Bar_star);
-	m_TextofStars.setPosition(m_Bar_star.getPosition().x + 33,
-			m_Bar_star.getPosition().y + 33);
-	window.draw(m_TextofStars);
-
-
 	for(size_t i = 0; i < m_Mushrooms.size(); ++i)
 		if(m_Mushrooms[i].isAlive())
 			window.draw(m_Mushrooms[i]);
 
-	window.draw(m_Gero.getSprite());
+	window.draw(m_Gero);
+	window.draw(m_StatusBar);
 }
 
 bool GameState::update(sf::Time dt)
 {
-
+	float time = clock.getElapsedTime().asSeconds();
 	m_Gero.update(float(dt.asMilliseconds()));
+	f = std::async(std::launch::async, getElapsedTimeLevel, time);
 	m_World.Step(1/60.f, 8, 3);
 	int j = 0;
 
@@ -92,51 +63,51 @@ bool GameState::update(sf::Time dt)
 					static_cast<std::string*>(it->GetUserData());
 
 			if(str != nullptr)
-				if ( *str == "box")
+				if (*str == "box")
 				{
 
 					float x, y;
 					x = converter::metersToPixels(pos.x);
 					y = converter::metersToPixels(pos.y);
-					//m_Position.push_back(new position(pos.x*32, pos.y*32));
-					//std::cout << x << " " << y << std::endl;
-					m_BoxBox2d[j].setPosition(x, y);
-					m_BoxBox2d[j++].
-								setRotation(converter::radToDeg(angle));
-//					xx = x;
-//					yy = y;
-
-
+					m_box2d[j++].setPosition(x, y,
+							converter::radToDeg(angle));
 				}
-
 		 }
-//    for(std::size_t i = 0; i < m_BoxBox2d.size(); i++)
-//    	{
-//    		m_BoxBox2d[i]->setPosition(m_Position[i]->x,m_Position[i]->y );
-//    		std::cout << m_Position[i]->x << std::endl;
-//    	}
+
+
+	if(m_Gero.getRect().intersects(m_Level.GetObject("abyss").rect))
+	{
+		m_Gero.reduceLive();
+		m_Gero.getBody()->SetTransform(b2Vec2(10,10),0) ;
+	}
+
 
     for(size_t i = 0; i < m_Mushrooms.size(); ++i)
-    	{
-
 			if(m_Gero.getRect().intersects(m_Mushrooms[i].getRect()))
-			{
-				stars++;
-				m_Mushrooms[i].setAlive(false);
-			}
-   	    }
+					m_Mushrooms[i].setAlive(false);
+
+    for(size_t i = 0; i < m_Mushrooms.size(); ++i)
+    	if(!m_Mushrooms[i].isAlive() && !m_Mushrooms[i].counted())
+    	{
+    		m_Mushrooms[i].setCounted(true);
+    		stars++;
+    	}
+    m_StatusBar.udate(m_Gero.getGeroView().getCenter(),sizeWindow,
+    		stars, f.get(), m_Gero.getLives());
+
    // std::cout  << (int)clock.getElapsedTime().asSeconds() << std::endl;
   //  m_TextofStars.
     //m_TextofStars.setString(m_ElepsadeTimeGame.str() );
-
 }
 
 bool GameState::handleEvent(const sf::Event& event)
 {
 	if (event.type == sf::Event::KeyPressed &&
 						event.key.code == sf::Keyboard::Escape)
+	{
+			//requestStateClear();
 			requestStackPush(StatesID::Pause);
-
+	}
 			m_Gero.handleEvent(event);
 }
 
@@ -144,58 +115,43 @@ bool GameState::handleEvent(const sf::Event& event)
 
 void GameState::selectLevel()
 {
-
-			LevelParser("XMLfiles/new3.xml", m_Level);
-
+	auto levelId = getContext().m_CurrentLevel;
+	auto& levels = *getContext().m_LevelsPathFromXML;
+	LevelParser(levels[levelId].c_str(), m_Level);
 }
-void GameState::createWorldBox2d()
+
+void GameState::createObjectWorld()
 {
 
 	for(std::size_t i = 0; i < m_Level.GetAllObjects().size(); ++i)
 	{
 		if(m_Level.GetAllObjects()[i].name == "solid")
-			m_BodysBox2d.push_back(
-					SolidBodyBox2d
-							(m_Level.GetAllObjects()[i].rect, m_World));
+			m_BodysBox2d.emplace_back(m_Level.GetAllObjects()[i].rect,
+					m_World);
 
 		if(m_Level.GetAllObjects()[i].name == "Dino")
 			m_Gero.creatBodyBox2d(m_Level.GetAllObjects()[i].rect);
 
 		if(m_Level.GetAllObjects()[i].name == "box")
-			{
-//				m_localRect = m_Level.GetAllObjects()[i].rect;
-				m_BoxBox2d.push_back(sf::Sprite(
-						m_TexHolderforBoxd2.get(Box2dTextureID::box)));
+			m_box2d.emplace_back(m_ObjectWorldTexturs.get(ObjectID::box),
+							m_Level.GetAllObjects()[i].rect, m_World);
 
-
-				m_box2d.push_back(BoxBodyBox2d
-							(m_Level.GetAllObjects()[i].rect, m_World));
-
-			}
+		if(m_Level.GetAllObjects()[i].name == "star")
+			m_Mushrooms.emplace_back(m_Level.GetAllObjects()[i].rect
+					,m_ObjectWorldTexturs.get(ObjectID::star));
 
 	}
-	auto Rect = m_Level.GetObject("box").rect;
-	for(std::size_t i = 0; i < m_BoxBox2d.size(); i++)
-			m_BoxBox2d[i].setOrigin(Rect.width/2, Rect.height/2);
-}
-void  GameState::createSfmlObject()
-{
 
-	for(std::size_t i = 0; i < m_Level.GetObjects("star").size(); i++)
-	{
-		m_Mushrooms.push_back(ObjectSfml(
-				m_Level.GetObjects("star")[i].rect
-				,m_TexHolderforBoxd2.get(Box2dTextureID::star)));
-	}
+//	for(std::size_t i = 0; i < m_BoxBox2d.size(); i++)
+//		centerOrigin(m_BoxBox2d[i]);
 }
+
 void GameState::downloudTexture()
 {
-	m_TexHolderforBoxd2.load(Box2dTextureID::box,
+	m_ObjectWorldTexturs.load(ObjectID::box,
 								"Media/summer/png/Object/Crate.png");
-	m_TexHolderforBoxd2.load(Box2dTextureID::heart,
-								"Media/heart.png");
-	m_TexHolderforBoxd2.load(Box2dTextureID::star,
+	m_ObjectWorldTexturs.load(ObjectID::star,
 									"Media/star.png");
-	m_TexHolderforBoxd2.load(Box2dTextureID::bar_star,
+	m_ObjectWorldTexturs.load(ObjectID::bar_star,
 										"Media/bar.png");
 }

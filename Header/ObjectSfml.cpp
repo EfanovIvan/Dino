@@ -11,16 +11,13 @@ ObjectSfml::ObjectSfml(sf::Rect<float> l_Rect, sf::Texture& l_Texture):
 					m_Rect(l_Rect)
 					,m_Sprite(l_Texture)
 					,m_Alive(true)
+					,m_counted(false)
 {
 	m_Sprite.setPosition(m_Rect.left, m_Rect.top);
 }
 bool ObjectSfml::isAlive()
 {
 	return m_Alive;
-}
-void ObjectSfml::draw(sf::RenderWindow& window)
-{
-	window.draw(m_Sprite);
 }
 
 void ObjectSfml::draw(sf::RenderTarget& taget,

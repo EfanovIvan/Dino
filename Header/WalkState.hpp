@@ -9,7 +9,7 @@
 #define HEADER_WALKSTATE_HPP_
 
 #include <EntityState.hpp>
-
+#include <MainGero.hpp>
 class WalkState: public EntityState {
 public:
 	WalkState();
