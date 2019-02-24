@@ -14,22 +14,22 @@
 #include <iostream>
 #include <EntityState.hpp>
 #include <memory>
-
-class MainGero : public sf::Drawable
+#include <ObjectBox2D.hpp>
+class MainGero : public ObjectBox2D
 {
 public:
 	MainGero(sf::Texture& l_texture, b2World& l_world);
 	virtual void update(float time);
 	virtual void handleEvent(const sf::Event& event);
 
-	sf::FloatRect getRect() { return m_Rect; }
+	sf::FloatRect const& getRect() { return m_Rect; }
 	sf::View& getGeroView();
 	void creatBodyBox2d(sf::Rect<float> l_Rect);
 	bool const getOnGround() { return m_OnGround; }
 	EntityState::GraphicState const getStateID() { return stateID; }
 	bool const getDirection() { return m_Direction; }
-	void draw(sf::RenderTarget& taget,
-								sf::RenderStates state) const override;
+//	void draw(sf::RenderTarget& taget,
+//								sf::RenderStates state) const override;
 	void reduceLive();
 	int getLives() { return m_Lives; }
 public:
@@ -46,21 +46,15 @@ private:
 	SelectAnimation m_SelectAnim;
 	sf::View 		viewGero;
 	sf::FloatRect 	m_Rect;
-	sf::Sprite      m_SpriteGero;
-	std::string const m_nameGero{"dino"};
+
 	EntityState::GraphicState stateID;
 
 	bool m_OnGround;
 	float delta  = 0;
 	bool m_Direction = false;
 
-	b2World &world;
-	b2FixtureDef m_FixtureDef;
-	b2BodyDef bodyDef;
-	b2PolygonShape b2shape;
-	b2Body* body = nullptr;
-	std::size_t m_Lives;
-	std::shared_ptr<std::string> m_Name;
+
+	int m_Lives;
 	EntityState* m_EntityState ;
 
 };

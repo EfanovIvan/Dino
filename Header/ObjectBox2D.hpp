@@ -21,16 +21,16 @@ public:
 				 b2World& l_world, b2BodyType type = b2_dynamicBody);
 
 	ObjectBox2D(sf::Rect<float> l_Rect, b2World& l_world, b2BodyType type );
-
+	explicit ObjectBox2D(b2World& l_world );
 
 	virtual void draw(sf::RenderTarget& taget,
 								sf::RenderStates state) const override;
 	void update();
-private:
+protected:
 	void setPosition(float x, float y, float angle);
 	void setPositionBody(sf::Rect<float>& rect);
 	void creatFixtureType(float density, float friction, b2BodyType type);
-private:
+protected:
 	sf::Rect<float> Rect;
 	sf::Sprite m_Sprite;
 	b2World &world;

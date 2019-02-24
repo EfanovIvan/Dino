@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="43" height="7" tilewidth="128" tileheight="128" infinite="0" nextobjectid="152">
+ <tileset firstgid="1" name="summer" tilewidth="128" tileheight="128" tilecount="100" columns="10">
+  <image source="../Media/summer/summer.png" width="1280" height="1280"/>
+ </tileset>
+ <tileset firstgid="101" name="winter" tilewidth="128" tileheight="128" tilecount="100" columns="10">
+  <image source="../Media/winter/winter.png" width="1280" height="1280"/>
+ </tileset>
+ <objectgroup name="Слой объектов 1">
+  <object id="45" name="solid" x="3.667" y="774" width="1611.33" height="68"/>
+  <object id="47" name="Dino" x="157.67" y="709.666" width="56" height="50"/>
+  <object id="55" name="solid" x="1538.33" y="545.667" width="49.666" height="227"/>
+  <object id="56" name="solid" x="1542.67" y="511" width="499.333" height="105.333"/>
+  <object id="57" name="solid" x="2050.67" y="642.333" width="245.333" height="250.667"/>
+  <object id="59" name="solid" x="2834.67" y="779" width="221.333" height="68"/>
+  <object id="60" name="solid" x="3206.67" y="642" width="243.333" height="35"/>
+  <object id="61" name="solid" x="3593.67" y="514" width="375.333" height="33"/>
+  <object id="62" name="solid" x="659.667" y="266" width="599.333" height="68"/>
+  <object id="63" name="solid" x="4230.67" y="256" width="1235.33" height="181"/>
+  <object id="69" name="solid" x="2192.67" y="265" width="231.333" height="68"/>
+  <object id="70" name="solid" x="1554.67" y="139" width="347.333" height="68"/>
+  <object id="71" name="solid" x="5482" y="-14" width="24" height="264"/>
+  <object id="73" name="solid" type="0" x="4" y="500" width="24" height="264"/>
+  <object id="99" name="box" x="1390.5" y="661.5" width="77" height="77"/>
+  <object id="100" name="box" x="1383.5" y="537.5" width="77" height="77"/>
+  <object id="101" name="box" x="1576.5" y="14.5" width="77" height="77"/>
+  <object id="102" name="box" x="1912.5" y="405.5" width="77" height="77"/>
+  <object id="103" name="box" x="1254.83" y="660.5" width="77" height="77"/>
+  <object id="104" name="box" x="1598.5" y="425.5" width="77" height="77"/>
+  <object id="129" name="EndLevel" x="4704" y="27.3333" width="531.333" height="212.667"/>
+  <object id="130" name="abyss" x="2243.67" y="899" width="2005.33" height="152"/>
+  <object id="131" name="star" x="4396.5" y="123.5" width="43" height="45"/>
+  <object id="132" name="star" x="601.5" y="640.5" width="43" height="45"/>
+  <object id="133" name="star" x="691.5" y="561.5" width="43" height="45"/>
+  <object id="134" name="star" x="774.5" y="639.5" width="43" height="45"/>
+  <object id="135" name="solid" x="2443.33" y="644" width="231.333" height="10"/>
+  <object id="136" name="solid" x="2558.33" y="385.5" width="379.333" height="35"/>
+  <object id="137" name="solid" x="4100.33" y="389.5" width="117.333" height="394"/>
+  <object id="138" name="star" x="796.5" y="143.5" width="43" height="45"/>
+  <object id="139" name="star" x="888.5" y="87.5" width="43" height="45"/>
+  <object id="140" name="star" x="964.5" y="146.5" width="43" height="45"/>
+  <object id="141" name="star" x="2271.5" y="171.5" width="43" height="45"/>
+  <object id="142" name="star" x="2627.5" y="310.5" width="43" height="45"/>
+  <object id="143" name="star" x="2713.5" y="232.5" width="43" height="45"/>
+  <object id="144" name="star" x="2793.5" y="303.5" width="43" height="45"/>
+  <object id="145" name="star" x="2533.5" y="564.5" width="43" height="45"/>
+  <object id="146" name="star" x="2915.5" y="659.5" width="43" height="45"/>
+  <object id="147" name="star" x="3307.5" y="544.5" width="43" height="45"/>
+  <object id="148" name="star" x="3644.5" y="436.5" width="43" height="45"/>
+  <object id="149" name="star" x="3716.5" y="363.5" width="43" height="45"/>
+  <object id="150" name="star" x="3785.5" y="434.5" width="43" height="45"/>
+  <object id="151" name="star" x="4140.5" y="318.5" width="43" height="45"/>
+ </objectgroup>
+ <objectgroup name="Слой объектов 2">
+  <object id="128" name="BG" type="Media/summer/BG.png" x="136" y="134"/>
+ </objectgroup>
+ <layer name="Слой тайлов 1" width="43" height="7">
+  <data>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="13"/>
+   <tile/>
+   <tile gid="35"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="31"/>
+   <tile gid="32"/>
+   <tile gid="33"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="65"/>
+   <tile gid="66"/>
+   <tile gid="67"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="24"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="16"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="31"/>
+   <tile gid="32"/>
+   <tile gid="32"/>
+   <tile gid="32"/>
+   <tile gid="33"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="31"/>
+   <tile gid="33"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="75"/>
+   <tile gid="76"/>
+   <tile gid="77"/>
+   <tile/>
+   <tile/>
+   <tile gid="73"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile/>
+   <tile/>
+   <tile gid="65"/>
+   <tile gid="66"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="69"/>
+   <tile/>
+   <tile gid="23"/>
+   <tile/>
+   <tile gid="25"/>
+   <tile gid="16"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="31"/>
+   <tile gid="32"/>
+   <tile gid="33"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="86"/>
+   <tile gid="25"/>
+   <tile/>
+   <tile gid="73"/>
+   <tile gid="36"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile/>
+   <tile/>
+   <tile gid="75"/>
+   <tile gid="76"/>
+   <tile gid="77"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="78"/>
+   <tile gid="79"/>
+   <tile gid="80"/>
+   <tile/>
+   <tile gid="73"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="71"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="14"/>
+   <tile/>
+   <tile gid="31"/>
+   <tile gid="32"/>
+   <tile gid="33"/>
+   <tile/>
+   <tile gid="26"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile/>
+   <tile gid="24"/>
+   <tile/>
+   <tile gid="86"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="46"/>
+   <tile gid="35"/>
+   <tile gid="89"/>
+   <tile gid="13"/>
+   <tile/>
+   <tile gid="26"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="44"/>
+   <tile gid="51"/>
+   <tile gid="71"/>
+   <tile/>
+   <tile gid="31"/>
+   <tile gid="33"/>
+   <tile/>
+   <tile gid="14"/>
+   <tile/>
+   <tile/>
+   <tile gid="31"/>
+   <tile gid="33"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="26"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="73"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="72"/>
+   <tile gid="52"/>
+   <tile gid="36"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="37"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="31"/>
+   <tile gid="33"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile gid="26"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+   <tile gid="56"/>
+  </data>
+ </layer>
+</map>

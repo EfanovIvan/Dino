@@ -33,7 +33,7 @@ public:
 	void setSprite(std::string spriteName);
 	void init();
 
-	sf::Sprite& animationOutput(MainGero& player, float time);
+	sf::Sprite& getCurrentSprit(MainGero& player, float time);
 	void setPosition(float x, float y);
 	sf::Sprite getSprite() { return m_CurrentSprite; }
 };

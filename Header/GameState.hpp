@@ -41,6 +41,8 @@ private:
 	void selectLevel();
 	void createObjectWorld();
 	void downloudTexture();
+	bool checkWinLevel();
+	bool checkGameOver();
 private:
 	ResourceHolder<sf::Texture, ObjectID>  m_ObjectWorldTexturs;
 

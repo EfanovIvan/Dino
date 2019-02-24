@@ -1,0 +1,7 @@
+<!DOCTYPE SpriteDecomposer>
+<levels>
+	<level id="1" name="XMLfiles/Winter.xml"/>
+	<level id="2" name="XMLfiles/Desert.xml"/>
+	<level id="3" name="XMLfiles/Summer.xml"/>	
+	
+</levels>

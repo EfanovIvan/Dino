@@ -29,6 +29,10 @@ ObjectBox2D::ObjectBox2D(sf::Rect<float> l_Rect,
 	setPositionBody(Rect);
 	creatFixtureType(1.0, 0.01, type);
 }
+ObjectBox2D::ObjectBox2D(b2World& l_world):world(l_world),body(nullptr)
+{
+
+}
 void ObjectBox2D::draw(sf::RenderTarget& taget,
 		sf::RenderStates state) const
 {
@@ -52,6 +56,7 @@ void ObjectBox2D::update()
 }
 void ObjectBox2D::setPositionBody(sf::Rect<float>& rect)
 {
+	Rect = rect;
 	using converter::pixelsToMeters;
 	bodyDef.position.Set(pixelsToMeters<double>(Rect.left+Rect.width/2),
 						pixelsToMeters<double>(Rect.top+Rect.height/2));

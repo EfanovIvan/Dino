@@ -19,6 +19,8 @@
 #include <tinyxml.h>
 #include <tinystr.h>
 #include <ParserXML.hpp>
+#include <PassedLevel.hpp>
+#include <GameOver.hpp>
 std::map<unsigned int, std::string>
 loadLevelXMLPath(std::string const& pathXMLFile);
 int main()
@@ -26,22 +28,27 @@ int main()
 	const sf::Time	TimePerFrame =sf::seconds(1.f/60.f);
 
 	sf::RenderWindow m_RenWindow(sf::VideoMode(1000, 850),
-										"States", sf::Style::Close);
+										"Dino", sf::Style::Close);
 	m_RenWindow.setVerticalSyncEnabled(true);
 	TextureHolder textures;
 	FontHolder fonts;
 	textures.load(Textures::TitleScreen,"Media/background.png" );
 	textures.load(Textures::MainGero,"Media/DinoTIleset.png" );
 	fonts.load(Fonts::Main,"Media/RAVIE.TTF" );
+	unsigned int currentLevel = 1;
 	auto LevelsXMLPath = loadLevelXMLPath("XMLfiles/levels.xml");
-	auto s = std::make_unique<StateStack>(State::Context(m_RenWindow,
-										textures, fonts, LevelsXMLPath ));
+	auto stateStack = std::make_unique<StateStack>(State::Context
+										(m_RenWindow,
+										textures, fonts,currentLevel,
+										LevelsXMLPath ));
 	sf::Event event;
-	s->registerState<TitleState>(StatesID::Title);
-	s->registerState<MenuState>(StatesID::Menu);
-	s->registerState<GameState>(StatesID::Game);
-	s->registerState<PauseState>(StatesID::Pause);
-	s->pushState(StatesID::Title);
+	stateStack->registerState<TitleState>(StatesID::Title);
+	stateStack->registerState<MenuState>(StatesID::Menu);
+	stateStack->registerState<GameState>(StatesID::Game);
+	stateStack->registerState<PauseState>(StatesID::Pause);
+	stateStack->registerState<PassedLevel>(StatesID::PassedLevel);
+	stateStack->registerState<GameOver>(StatesID::GameOver);
+	stateStack->pushState(StatesID::Title);
 
 	sf::Clock clock;
 		sf::Time timeSinceLastUpdate = sf::Time::Zero;
@@ -58,22 +65,22 @@ int main()
 
 					while (m_RenWindow.pollEvent(event))
 					{
-						s->handleEvent(event);
+						stateStack->handleEvent(event);
 
 						if (event.type == sf::Event::Closed)
 							m_RenWindow.close();
 					}
-					s->update(TimePerFrame);
+					stateStack->update(TimePerFrame);
 
 				// Check inside this loop, because stack might be empty before update() call
-				if (s->isEmpty())
+				if (stateStack->isEmpty())
 					m_RenWindow.close();
 			}
 
 			//updateStatistics(dt);
 			m_RenWindow.clear();
 
-			s->draw();
+			stateStack->draw();
 
 //			m_RenWindow.setView(mWindow.getDefaultView());
 //			m_RenWindow.draw(mStatisticsText);

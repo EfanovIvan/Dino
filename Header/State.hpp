@@ -10,7 +10,9 @@ enum class StatesID
 		Menu,
 		Game,
 		Loading,
-		Pause
+		Pause,
+		PassedLevel,
+		GameOver
 	};
 
 namespace sf
@@ -31,12 +33,13 @@ class State
 		Context(sf::RenderWindow& l_Window
 				,TextureHolder& l_Textures
 				,FontHolder&   l_Fonts
+				,unsigned int& l_currentLevel
 				,std::map<unsigned int, std::string>& levelsPath);
 
 		sf::RenderWindow*  m_Window;
 		TextureHolder   *  m_Textures;
 		FontHolder      *  m_Fonts;
-		unsigned int       m_CurrentLevel;
+		 unsigned int   *     m_CurrentLevel;
 		std::map<unsigned int, std::string> *m_LevelsPathFromXML;
 	};
 	public:

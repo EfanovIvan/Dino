@@ -16,7 +16,8 @@ GameState::GameState(StateStack& stack, Context context)
 					,m_World(b2Vec2(0.f, 9.8f))
 					,m_Gero(context.m_Textures->
 										get(Textures::MainGero),m_World)
-					,m_StatusBar(context.m_Fonts->get(Fonts::Main))
+					,m_StatusBar(context.m_Fonts->get(Fonts::Main),
+									context.m_Window->getSize())
 {
 	countStars = 0;
 	selectLevel();
@@ -73,8 +74,22 @@ bool GameState::update(sf::Time dt)
     		m_Stars[i].setCounted(true);
     		countStars++;
     	}
-    m_StatusBar.udate(m_Gero.getGeroView().getCenter(),sizeWindow,
+
+    if(checkWinLevel())
+    {
+    	(*getContext().m_CurrentLevel)++;
+    	requestStateClear();
+    	requestStackPush(StatesID::PassedLevel);
+    }
+    if(checkGameOver())
+    {
+    	requestStateClear();
+    	requestStackPush(StatesID::GameOver);
+    }
+    m_StatusBar.udate(m_Gero.getGeroView().getCenter(),
     		countStars, m_timeConvert.get(), m_Gero.getLives());
+
+
 
 }
 
@@ -82,9 +97,8 @@ bool GameState::handleEvent(const sf::Event& event)
 {
 	if (event.type == sf::Event::KeyPressed &&
 						event.key.code == sf::Keyboard::Escape)
-	{
 			requestStackPush(StatesID::Pause);
-	}
+
 			m_Gero.handleEvent(event);
 }
 
@@ -92,9 +106,10 @@ bool GameState::handleEvent(const sf::Event& event)
 
 void GameState::selectLevel()
 {
-	auto levelId = getContext().m_CurrentLevel;
+
+	auto levelId = *getContext().m_CurrentLevel;
 	auto& levels = *getContext().m_LevelsPathFromXML;
-	LevelParser(levels[levelId].c_str(), m_Level);
+	LevelParser(levels[levelId++].c_str(), m_Level);
 }
 
 void GameState::createObjectWorld()
@@ -119,11 +134,30 @@ void GameState::createObjectWorld()
 	}
 
 }
+bool GameState::checkWinLevel()
+{
 
+	if(m_Gero.getRect().intersects(m_Level.GetObject("EndLevel").rect))
+	{
+		if(countStars == m_Stars.size()
+				&& clock.getElapsedTime().asSeconds() < 180)
+		return true;
+	}
+
+	else
+		return false;
+}
+bool GameState::checkGameOver()
+{
+	if(clock.getElapsedTime().asSeconds() > 180
+			|| m_Gero.getLives() == 0)
+		return true;
+	return false;
+}
 void GameState::downloudTexture()
 {
 	m_ObjectWorldTexturs.load(ObjectID::box,
-								"Media/summer/png/Object/Crate.png");
+								"Media/summer/Object/Crate.png");
 	m_ObjectWorldTexturs.load(ObjectID::star,
 									"Media/star.png");
 	m_ObjectWorldTexturs.load(ObjectID::bar_star,

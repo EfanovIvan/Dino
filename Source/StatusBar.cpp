@@ -7,7 +7,8 @@
 
 #include <StatusBar.hpp>
 
-StatusBar::StatusBar(sf::Font& l_font):second(0),minut(0)
+StatusBar::StatusBar(sf::Font& l_font, sf::Vector2u l_sizeWindow)
+					:m_SizeWindow(l_sizeWindow), second(0),minut(0)
 
 {
 	m_TextOfStars.setFont(l_font);
@@ -36,8 +37,7 @@ StatusBar::StatusBar(sf::Font& l_font):second(0),minut(0)
 	m_Lives = 3;
 }
 void StatusBar::udate(sf::Vector2f positionView,
-						sf::Vector2u sizeWindow, int count, std::string str
-						, int lives)
+						 int count, std::string str, int lives)
 {
 	m_Lives = lives;
 	m_Time.setString(str);
@@ -47,8 +47,8 @@ void StatusBar::udate(sf::Vector2f positionView,
 		m_TextOfStars.setString("0" + std::to_string(count));
 
 
-	positionView.x = positionView.x - sizeWindow.x/2;
-	positionView.y = positionView.y - sizeWindow.y/2;
+	positionView.x = positionView.x - m_SizeWindow.x/2;
+	positionView.y = positionView.y - m_SizeWindow.y/2;
 	for(std::size_t i = 0, offset = 70;  i < m_Hearts.size(); i++)
 	{
 		positionView.x = positionView.x + offset;

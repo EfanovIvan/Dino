@@ -6,11 +6,12 @@
 State::Context::Context(sf::RenderWindow& l_Window
 						,TextureHolder& l_Textures
 						,FontHolder&   l_Fonts
+						,unsigned int& l_currentLevel
 						,std::map<unsigned int, std::string>& levelsPath):
 						m_Window(&l_Window)
 						,m_Textures(&l_Textures)
 						,m_Fonts(&l_Fonts)
-						,m_CurrentLevel(3)
+						,m_CurrentLevel(&l_currentLevel)
 						,m_LevelsPathFromXML(&levelsPath)
 {
 

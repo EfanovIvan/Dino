@@ -10,12 +10,12 @@
 #include <IdleState.hpp>
 #include <JumpState.hpp>
 #include <Utility.hpp>
+#include <ObjectBox2D.hpp>
+#include <Utility.hpp>
 	MainGero::MainGero(sf::Texture& l_texture, b2World& l_world)
-								:m_SelectAnim(l_texture)
-								,world(l_world)
+								:ObjectBox2D(l_world)
+								,m_SelectAnim(l_texture)
 								,m_EntityState(new IdleState)
-								,m_Name(std::make_shared
-													<std::string>("dino"))
 								,m_Lives(3)
 {
 		m_SelectAnim.load("XMLfiles/DinoRectangle.xml");
@@ -34,33 +34,19 @@ void MainGero::handleEvent(const sf::Event& event)
 	}
 }
 
-void MainGero::draw(sf::RenderTarget& taget,
-									sf::RenderStates state) const
-{
-	taget.draw(m_SpriteGero);
-}
+//void MainGero::draw(sf::RenderTarget& taget,
+//									sf::RenderStates state) const
+//{
+//	taget.draw(m_Sprite);
+//}
 void MainGero::update(float time)
 {
+	//ObjectBox2D::update();
 	b2Vec2  vecBody = body->GetPosition();
-	//body->SetTransform(b2Vec2(0,0),body->GetAngle()) ;
-		int x, y;
-		x = converter::metersToPixels(vecBody.x);
-		y = converter::metersToPixels(vecBody.y);
-//		if((int)body->GetLinearVelocity().y == 0
-//			&& (int)body->GetLinearVelocity().x  == 0
-//			&& stateID == EntityState::GraphicState::JUMP)
-//		{
-//			idle();
-//			m_OnGround = true;
-//			m_EntityState = new IdleState;
-//			stateID = m_EntityState->state();
-//		}
-//		if((int)body->GetLinearVelocity().y > 0
-//					&& stateID == EntityState::GraphicState::IDLE)
-//			{
-//			m_EntityState = new JumpState;
-//			stateID = m_EntityState->state();
-//			}
+	int x, y;
+	x = converter::metersToPixels(vecBody.x);
+	y = converter::metersToPixels(vecBody.y);
+
 	for (b2ContactEdge* edge = body->GetContactList();
 											edge; edge = edge->next)
 		{
@@ -71,60 +57,29 @@ void MainGero::update(float time)
 			{
 				idle();
 				m_OnGround = true;
-				m_EntityState = new IdleState;
+				EntityState* state = new IdleState;
+				delete m_EntityState;
+				m_EntityState = state;
 				stateID = m_EntityState->state();
 				//m_EntityState = new IdleState;
 			}
 		}
-		//vecBody.y +=  converter::pixelsToMeters(1);
-//for (b2Body* it = world.GetBodyList(); it != 0; it = it->GetNext())
-//	for (b2Fixture *f = it->GetFixtureList(); f!=0; f=f->GetNext())
-//		if (f->TestPoint(vecBody) &&
-//				stateID == EntityState::GraphicState::JUMP)
-//		{
-//			std::cout << "touch " << std::endl;
-//			idle();
-//			m_OnGround = true;
-//			m_EntityState = new IdleState;
-//			stateID = m_EntityState->state();
-//		}
-
-			x -= m_Rect.width/2;
-			y -= m_Rect.height/2;
-			delta = m_Rect.left;
-			 m_Rect.left = x;
-			 m_Rect.top = y;
-
-
-			 delta = m_Rect.left - delta;
-			 m_Direction = direct(delta);
-
-	m_SpriteGero = m_SelectAnim.animationOutput(*this, time);
+	delta = m_Rect.left;
+	m_Rect.left = x;
+	m_Rect.top = y;
+	delta = m_Rect.left - delta;
+	m_Direction = direct(delta);
+	m_Sprite = m_SelectAnim.getCurrentSprit(*this, time);
+	m_Sprite.setPosition(m_Rect.left, m_Rect.top);
+	centerOrigin(m_Sprite);
 	viewGero.setCenter(m_Rect.left, m_Rect.top);
 
 }
 void MainGero::creatBodyBox2d(sf::Rect<float> l_Rect)
 {
 	m_Rect = l_Rect;
-	using converter::pixelsToMeters;
-	bodyDef.position.Set(pixelsToMeters<double>(m_Rect.left+m_Rect.width/2),
-						pixelsToMeters<double>(m_Rect.top+m_Rect.height/2));
-
-	bodyDef.type = b2_dynamicBody;
-
-		b2shape.SetAsBox(pixelsToMeters<double>(m_Rect.width/2.0),
-						 pixelsToMeters<double>(m_Rect.height/2.0));
-
-
-		m_FixtureDef.density = 1;
-		m_FixtureDef.friction = 0.1;
-		m_FixtureDef.restitution= 0;
-		m_FixtureDef.shape = &b2shape;
-
-		body = world.CreateBody(&bodyDef);
-		body->CreateFixture(&m_FixtureDef);
-		//body -> SetUserData((void*)&m_nameGero);
-
+	setPositionBody(l_Rect);
+	creatFixtureType(1, 0.1,b2_dynamicBody);
 }
 
 sf::View& MainGero::getGeroView()
@@ -201,5 +156,5 @@ bool MainGero::direct(float dir)
 void  MainGero::reduceLive()
 {
 	m_Lives--;
-	body->SetTransform(b2Vec2(10,10),0) ;
+	body->SetTransform(b2Vec2(20,20),0) ;
 }

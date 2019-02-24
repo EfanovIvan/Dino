@@ -34,7 +34,7 @@ private:
 	sf::Sprite				m_BackgroundSprite;
 
 	std::vector<sf::Text>	m_Options;
-	std::size_t				m_OptionIndex;;
+	std::size_t				m_OptionIndex;
 };
 
 #endif /* HEADER_MENUSTATE_HPP_ */

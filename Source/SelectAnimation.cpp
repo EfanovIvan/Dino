@@ -71,7 +71,7 @@ void SelectAnimation::load(std::string const& fileNameXML)
 	clear();
 
 }
-sf::Sprite&  SelectAnimation::animationOutput(MainGero& player, float time)
+sf::Sprite&  SelectAnimation::getCurrentSprit(MainGero& player, float time)
 {
 	using stateID = EntityState::GraphicState;
 	m_CurrentFrame += m_SpeedFrame * time;
@@ -119,8 +119,7 @@ sf::Sprite&  SelectAnimation::animationOutput(MainGero& player, float time)
 			break;
 		}
 	}
-		m_CurrentSprite.setPosition(player.getRect().left,
-				player.getRect().top);
+
 		return m_CurrentSprite;
 }
 

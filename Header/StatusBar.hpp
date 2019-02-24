@@ -18,11 +18,11 @@
 class StatusBar: public sf::Drawable
 {
 public:
-	StatusBar(sf::Font& l_font);
+	StatusBar(sf::Font& l_font, sf::Vector2u l_sizeWindow);
 	void draw(sf::RenderTarget& taget,
 								sf::RenderStates state) const override;
-	void udate(sf::Vector2f positionView, sf::Vector2u sizeWindow,
-			int count, std::string, int lives);
+	void udate(sf::Vector2f positionView,
+					int count, std::string, int lives);
 
 private:
 
@@ -35,6 +35,7 @@ private:
 	sf::Sprite m_TimeBar;
 	sf::Text m_TextOfStars;
 	sf::Text m_Time;
+	const sf::Vector2u m_SizeWindow;
 	int m_Lives;
 	int second;
 	int minut;
